@@ -1,5 +1,8 @@
 # Plan: Code Coverage (JaCoCo) + Mutation Score (PITest) including integration & system tests
 
+> **Historical document** (as of 2026-05-25). Superseded by the implemented project; see `CLAUDE.md`
+> and `CHANGELOG.md` for the current state. Details below reflect the codebase at the time of writing.
+
 ## Context
 
 CampusCoffee is a 4-module Maven project (`domain`, `api`, `data`, `application`) with a

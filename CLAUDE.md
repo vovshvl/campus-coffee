@@ -130,7 +130,7 @@ gradle test --tests "PosServiceTest.testMethodName"
   acceptance tests, as the Maven build did; it adds the `api`/`data` `classes/kotlin/main` directories as
   `additionalMutableCodePaths`. The generated `*MapperImpl` classes are excluded from mutation, mirroring the JaCoCo gate.
   Per-module `targetClasses` live in each module's `build.gradle.kts`; shared config is in the
-  `campuscoffee.pitest-conventions` convention plugin. Select the mutator group with
+  `de.seuhd.campuscoffee.pitest-conventions` convention plugin. Select the mutator group with
   `-Ppitest.mutators=DEFAULTS|STRONGER|ALL`.
 - When adding a feature, also add tests; use surviving mutants to find missing assertions. The
   handwritten mapping logic in `PosEntityMapper` (house-number parsing), `ReviewDtoMapper` (expression
@@ -165,7 +165,7 @@ Migration files follow Flyway naming convention (e.g., `V1__create_pos_table.sql
 - **System Tests**: In `application/src/test/kotlin/de/seuhd/campuscoffee/tests/system/` (e.g., `PosSystemTests`, `UsersSystemTests`)
   - Use Testcontainers for PostgreSQL.
   - Use Spring's `RestTestClient` for API testing.
-  - Extend `AbstractSysTest` base class.
+  - Extend `AbstractSystemTest` base class.
 - **Acceptance Tests**: In `application/src/test/kotlin/de/seuhd/campuscoffee/tests/acceptance/`
   - Cucumber BDD tests with `.feature` files in `application/src/test/resources/de/seuhd/campuscoffee/tests/acceptance/`
   - Step definitions in `CucumberPosSteps.kt` and `CucumberReviewSteps.kt`
@@ -185,9 +185,9 @@ returned value. Avoid `should` and vague status nouns (`returns conflict`). Exam
 - ``fun `upsert throws DuplicationException for a duplicate POS name`()`` (data test)
 - ``fun `findByName returns the matching POS and null when none matches`()`` (repository test)
 
-ktlint's `function-naming` rule permits these for test-annotated functions. Non-test functions —
-setup (`@BeforeEach`/`@AfterAll`), `@MethodSource` providers, Cucumber step definitions, and private
-helpers — keep conventional camelCase names.
+ktlint's `function-naming` rule permits these for test-annotated functions. Non-test functions (setup
+methods like `@BeforeEach`/`@AfterAll`, `@MethodSource` providers, Cucumber step definitions, and
+private helpers) keep conventional camelCase names.
 
 ## Key Technologies
 
@@ -213,10 +213,15 @@ Domain exceptions in `domain/src/main/kotlin/de/seuhd/campuscoffee/domain/except
 - `MissingFieldException`: Required field missing.
 
 Global exception handler: `api/src/main/kotlin/de/seuhd/campuscoffee/api/exceptions/GlobalExceptionHandler.kt`.
+It extends `ResponseEntityExceptionHandler`, so the standard Spring MVC exceptions also map to their
+proper status codes (an unmapped path returns 404, a wrong HTTP method 405) instead of a generic 500.
+
+The REST API is JSON-only: `ApiPathConfig` removes the XML message converter, so a client's `Accept`
+header cannot switch responses to XML (the OSM client parses XML with its own `XmlMapper`).
 
 ### MapStruct Configuration
 
-MapStruct runs as a Kotlin annotation processor via kapt, applied through the `campuscoffee.kotlin-kapt-conventions` convention plugin (`build-logic/`); the `api` and `data` modules declare `kapt(mapstruct-processor)`. The generated `*MapperImpl` classes are excluded from the coverage and mutation gates.
+MapStruct runs as a Kotlin annotation processor via kapt, applied through the `de.seuhd.campuscoffee.kotlin-kapt-conventions` convention plugin (`build-logic/`); the `api` and `data` modules declare `kapt(mapstruct-processor)`. The generated `*MapperImpl` classes are excluded from the coverage and mutation gates.
 
 ### Custom Sequence Generation
 

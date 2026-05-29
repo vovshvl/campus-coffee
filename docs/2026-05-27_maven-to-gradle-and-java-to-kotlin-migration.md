@@ -1,5 +1,8 @@
 # Migration plan: Maven → Gradle, Java 25, Spring Boot 4, then Kotlin
 
+> **Historical document** (as of 2026-05-27). Superseded by the implemented project; see `CLAUDE.md`
+> and `CHANGELOG.md` for the current state. Details below reflect the codebase at the time of writing.
+
 ## Context
 
 CampusCoffee is a Spring Boot 3.5 multi-module app (`domain`, `api`, `data`, `application`,

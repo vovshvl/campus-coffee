@@ -1,5 +1,8 @@
 # Phase 4 final pass: models, entities, MapStruct, and the test suite to Kotlin
 
+> **Historical document** (as of 2026-05-27). Superseded by the implemented project; see `CLAUDE.md`
+> and `CHANGELOG.md` for the current state. Details below reflect the codebase at the time of writing.
+
 ## Where we are
 
 The Java → Kotlin migration converted the non-model production code of all four modules,

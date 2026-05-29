@@ -1,5 +1,8 @@
 # Plan: Kotlin code-quality cleanup + introduce ktlint auto-formatter
 
+> **Historical document** (as of 2026-05-28). Superseded by the implemented project; see `CLAUDE.md`
+> and `CHANGELOG.md` for the current state. Details below reflect the codebase at the time of writing.
+
 ## Context
 
 The Java→Kotlin migration is complete and the repository is Kotlin-only. A code-quality review
