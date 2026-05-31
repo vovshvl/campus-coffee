@@ -39,9 +39,6 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
 
-        <!-- Spring Boot -->
-        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-parent/ -->
-        <spring.boot.version>3.5.7</spring.boot.version>
         <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies -->
         <spring.cloud.version>2025.0.0</spring.cloud.version>
         <!-- https://docs.junit.org/current/user-guide/#running-tests-build-spring-boot -->
@@ -173,10 +170,11 @@
                             <artifactId>lombok-mapstruct-binding</artifactId>
                             <version>${lombok.mapstruct.version}</version>
                         </path>
+                        <!-- Version omitted so it resolves from the Spring Boot BOM (as the lombok path
+                             above does), keeping it in lockstep with the parent and unable to drift. -->
                         <path>
                             <groupId>org.springframework.boot</groupId>
                             <artifactId>spring-boot-configuration-processor</artifactId>
-                            <version>${spring.boot.version}</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
