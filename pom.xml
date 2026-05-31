@@ -14,7 +14,7 @@
     <groupId>de.seuhd.campuscoffee</groupId>
     <artifactId>parent</artifactId>
     <version>0.0.5</version>
-    <url>https://github.com/se-ubt/ise25-26_campus-coffee</url>
+    <url>https://github.com/se-uhd/campus-coffee</url>
 
     <packaging>pom</packaging>
 

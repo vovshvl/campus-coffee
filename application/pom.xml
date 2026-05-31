@@ -123,6 +123,16 @@
                 <configuration>
                     <skip>false</skip>
                 </configuration>
+                <executions>
+                    <!-- Writes the Maven coordinates (notably ${project.version}) to
+                         META-INF/build-info.properties so Spring Boot exposes a BuildProperties bean
+                         and the version has a single source: the pom. -->
+                    <execution>
+                        <goals>
+                            <goal>build-info</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
