@@ -3,15 +3,17 @@ package de.seuhd.campuscoffee
 import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.process.CommandLineArgumentProvider
 
-// Shared configuration for the library/application modules: the Java 25 toolchain (also used by the
+// Shared configuration for the library/application modules: the Java toolchain (also used by the
 // Kotlin compilation), the Spring Boot BOM, and the test JVM args. JaCoCo's agent is added by
-// campuscoffee.jacoco-conventions.
+// campuscoffee.jacoco-conventions. The Java major version is sourced from the version catalog
+// (libs `java`) so it cannot drift from the Kotlin target, mise, and the Docker image.
 plugins {
     `java-library`
     id("io.spring.dependency-management")
 }
 
 val libs = the<VersionCatalogsExtension>().named("libs")
+val javaVersion = libs.findVersion("java").get().requiredVersion
 
 group = "de.seuhd.campuscoffee"
 // 0.1.x line for the Gradle/Kotlin migration, distinct from the 0.0.x Maven/Java line on main.
@@ -23,7 +25,7 @@ extra["kotlin.version"] = libs.findVersion("kotlin").get().requiredVersion
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(25))
+        languageVersion.set(JavaLanguageVersion.of(javaVersion))
     }
 }
 

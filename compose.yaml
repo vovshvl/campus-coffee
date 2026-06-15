@@ -2,7 +2,8 @@ name: campus-coffee
 
 services:
   app:
-    # image: 'campus-coffee:latest' (trigger "local" build when using Cloud Build)
+    # `gcloud beta run compose up` builds this from source via Cloud Build (no prebuilt image to
+    # pull); local `docker compose up` builds the same context from the Dockerfile.
     build:
       context: .
     container_name: campus-coffee-app-dev

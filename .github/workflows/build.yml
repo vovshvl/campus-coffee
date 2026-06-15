@@ -24,6 +24,11 @@ jobs:
 
       - uses: jdx/mise-action@v4
 
+      # Fail fast if the Java major version drifts across the version catalog, mise.toml, and the
+      # Dockerfile before spending time on the full build.
+      - name: Check toolchain versions are consistent
+        run: ./scripts/check-toolchain-versions.sh
+
       # `gradle build` runs `check`: ktlint, detekt, the tests, and the coverage aggregate report and gate.
       - name: Build with Gradle
         run: gradle build

@@ -54,6 +54,13 @@ Domain-specific controllers/services extend these base classes (e.g., `PosContro
   (CI uses `jdx/mise-action`). The build pins a **Java 25 toolchain with no auto-download**, so a
   JDK 25 must be present on the machine — mise supplies it; without it the build fails with "no
   matching toolchains".
+- The Java major version has a **single source of truth**: the `java` entry in
+  `gradle/libs.versions.toml`. The convention plugins resolve it for the Gradle toolchain
+  (`java-conventions`) and the Kotlin `jvmTarget` (`kotlin-conventions`); `mise.toml` and the
+  Dockerfile runtime image pin the same major by hand. `scripts/check-toolchain-versions.sh` (a CI
+  step in `build.yml`) fails the build if they drift. To bump the JDK, change the catalog entry and
+  the two hand-written pins together. The Docker **build** stage no longer pins a JDK/Gradle version:
+  it installs mise and provisions both from `mise.toml`, mirroring CI.
 
 ### Build
 

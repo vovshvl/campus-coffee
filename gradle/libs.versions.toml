@@ -1,6 +1,10 @@
 # Version catalog for the CampusCoffee Gradle build. Entries without a version are managed by the
 # Spring Boot BOM (imported in campuscoffee.java-conventions).
 [versions]
+# Java major version: the single source of truth for the toolchain. The convention plugins resolve
+# it for the Gradle toolchain and the Kotlin jvmTarget; mise.toml and the Dockerfile pin the same
+# major, and scripts/check-toolchain-versions.sh (run in CI) fails the build if they drift.
+java = "25"
 spring-boot = "4.0.6"
 junit = "6.1.0"
 springdoc = "3.0.3"
